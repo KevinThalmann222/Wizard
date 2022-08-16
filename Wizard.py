@@ -1,5 +1,4 @@
 import datetime
-import colorama
 import time
 import logging
 
@@ -12,7 +11,6 @@ class Wizard:
         self.player_points = {}
         self.current_datetime = datetime.datetime.now().strftime("%Y%m%d_%Hh%Mm")
         self.logger = self.create_logger()
-        colorama.init(autoreset=True)
 
     def create_logger(self):
         logger = logging.getLogger(f"Wizzard_{self.current_datetime}")
@@ -40,19 +38,19 @@ class Wizard:
         Returns:
             int: number of player
         """
-        self.logger.info(colorama.Fore.CYAN + "Als Erstes wird die Anzahl der Spieler bestimmt.")
-        self.logger.info(colorama.Fore.RED + "=> min = 3, max = 6 <=")
+        self.logger.info("Als Erstes wird die Anzahl der Spieler bestimmt.")
+        self.logger.info("=> min = 3, max = 6 <=")
         while True:
             try:
-                self.players_num = int(input(colorama.Fore.GREEN + "Bitte wähle die Anzahl der Spieler: "))
+                self.players_num = int(input("Bitte wähle die Anzahl der Spieler: "))
             except Exception:
-                self.logger.info(colorama.Fore.RED + "Die Eingabe ist nicht korrekt, bitte wähle eine Zahl zwischen 3 und 6")
+                self.logger.info("Die Eingabe ist nicht korrekt, bitte wähle eine Zahl zwischen 3 und 6")
             else:
                 if self.players_num < 3 or self.players_num > 6:
-                    self.logger.info(colorama.Fore.RED + "Anzahl der Spieler muss zwischen 3 und 6 sein!")
+                    self.logger.info("Anzahl der Spieler muss zwischen 3 und 6 sein!")
                     continue
                 else:
-                    self.logger.info(colorama.Fore.GREEN + f"Anzahl der Spieler = {self.players_num }")
+                    self.logger.info(f"Anzahl der Spieler = {self.players_num }")
                     break
         return self.players_num
 
@@ -62,11 +60,11 @@ class Wizard:
         Returns:
             list: name of the players
         """
-        self.logger.info(colorama.Fore.CYAN + "\nNun werden die Namen der Spieler bestimmt.")
-        self.logger.info(colorama.Fore.CYAN + "Starte mit dem Spieler welcher beginnen soll und gehe dann im Uhrzeigersinn weiter!\n")
+        self.logger.info("\nNun werden die Namen der Spieler bestimmt.")
+        self.logger.info("Starte mit dem Spieler welcher beginnen soll und gehe dann im Uhrzeigersinn weiter!\n")
         if not self.players_num:
             self.players_num = self.player_number()
-        self.player_name = [input(colorama.Fore.GREEN + f"Name von Spieler {num+1}: ") for num in range(self.players_num)]
+        self.player_name = [input(f"Name von Spieler {num+1}: ") for num in range(self.players_num)]
         return self.player_name
 
     def round_number(self) -> int:
@@ -88,14 +86,14 @@ class Wizard:
         else:
             round_num = 10
 
-        self.logger.info(colorama.Fore.RED + "\nWichtiger Hinweiß! Durch eintragen eines Buchstabens kann die Schätzung korrigiert werden.")
-        self.logger.info(colorama.Fore.CYAN + f"\nHallo {', '.join(self.player_name)} es werden {round_num} gespielt. Viel Spaß.\n")
+        self.logger.info("\nWichtiger Hinweiß! Durch eintragen eines Buchstabens kann die Schätzung korrigiert werden.")
+        self.logger.info(f"\nHallo {', '.join(self.player_name)} es werden {round_num} gespielt. Viel Spaß.\n")
         return round_num
 
     def run(self) -> None:
         """start the game"""
         self.logger.info("\n")
-        self.logger.info(colorama.Fore.RED + f"=============================================== Wizard by Kevin Thalmann ===============================================")
+        self.logger.info("=============================================== Wizard by Kevin Thalmann ===============================================")
         self.logger.info("\n")
         num_rounds = self.round_number()
         player_wins = []
@@ -107,11 +105,11 @@ class Wizard:
             while not idx_player == len(self.player_name):
                 if idx_player + 1 == self.players_num:
                     if wins > runde:
-                        player_win = input(colorama.Fore.GREEN + f"{self.player_name[idx_player]} bitte schätze deine Siege: ")
+                        player_win = input(f"{self.player_name[idx_player]} bitte schätze deine Siege: ")
                         if player_win.isalpha():
                             if not player_wins:
                                 continue
-                            self.logger.info(colorama.Fore.RED + f"         --> {self.player_name[idx_player-1]}s Eintrag wird gelöscht.")
+                            self.logger.info(f"         --> {self.player_name[idx_player-1]}s Eintrag wird gelöscht.")
                             wins -= player_wins[-1]["Points"]
                             player_wins.pop(-1)
                             idx_player -= 1
@@ -119,25 +117,25 @@ class Wizard:
                         player_wins.append({"Gamer": self.player_name[idx_player], "Points": int(player_win)})
                         wins += int(player_win)
                     else:
-                        player_win = input(colorama.Fore.RED + f"Achtung {self.player_name[idx_player]}! Du darfst NICHT {(forbidden_num := runde-wins)} auswählen, bitte schätze: ")
+                        player_win = input(f"Achtung {self.player_name[idx_player]}! Du darfst NICHT {(forbidden_num := runde-wins)} auswählen, bitte schätze: ")
                         if player_win.isalpha():
                             if not player_wins:
                                 continue
-                            self.logger.info(colorama.Fore.RED + f"         --> {self.player_name[idx_player-1]}s Eintrag wird gelöscht.")
+                            self.logger.info(f"         --> {self.player_name[idx_player-1]}s Eintrag wird gelöscht.")
                             wins -= player_wins[-1]["Points"]
                             player_wins.pop(-1)
                             idx_player -= 1
                             continue
                         while forbidden_num == int(player_win):
-                            player_win = input(colorama.Fore.RED + f"Achtung {self.player_name[idx_player]}! Du darfst NICHT {(forbidden_num := runde-wins)} auswählen, bitte schätze: ")
+                            player_win = input(f"Achtung {self.player_name[idx_player]}! Du darfst NICHT {(forbidden_num := runde-wins)} auswählen, bitte schätze: ")
                         player_wins.append({"Gamer": self.player_name[idx_player], "Points": int(player_win)})
                         wins += int(player_win)
                     break
-                player_win = input(colorama.Fore.GREEN + f"{self.player_name[idx_player]} bitte schätze deine Siege: ")
+                player_win = input(f"{self.player_name[idx_player]} bitte schätze deine Siege: ")
                 if player_win.isalpha():
                     if not player_wins:
                         continue
-                    self.logger.info(colorama.Fore.RED + f"               -----> {self.player_name[idx_player-1]}s Eintrag wird gelöscht.")
+                    self.logger.info(f"               -----> {self.player_name[idx_player-1]}s Eintrag wird gelöscht.")
                     wins -= player_wins[-1]["Points"]
                     player_wins.pop(-1)
                     idx_player -= 1
@@ -145,45 +143,45 @@ class Wizard:
                 player_wins.append({"Gamer": self.player_name[idx_player], "Points": int(player_win)})
                 wins += int(player_win)
                 idx_player += 1
-            self.logger.info(colorama.Fore.CYAN + "-" * 40)
-            self.logger.info(colorama.Fore.CYAN + f"Gesamtanzahl der Siege = {wins}")
-            self.logger.info(colorama.Fore.CYAN + "-" * 40)
-            self.logger.info(colorama.Fore.CYAN + "Viel Erfolg bei der Runde ...")
+            self.logger.info("-" * 40)
+            self.logger.info(f"Gesamtanzahl der Siege = {wins}")
+            self.logger.info("-" * 40)
+            self.logger.info("Viel Erfolg bei der Runde ...")
             if runde in [1, 2, 3]:
                 time.sleep(5)
             else:
                 time.sleep(15)
             for gamer in player_wins:
-                real_win = int(input(colorama.Fore.GREEN + f"{gamer['Gamer']} wie oft hast du gewonnen?: "))
+                real_win = int(input(f"{gamer['Gamer']} wie oft hast du gewonnen?: "))
                 if real_win == gamer["Points"]:
                     winning_points = 20 + 10 * real_win
                     try:
                         self.player_points[gamer["Gamer"]] = self.player_points[gamer["Gamer"]] + winning_points
                     except Exception:
                         self.player_points[gamer["Gamer"]] = winning_points
-                    self.logger.info(colorama.Fore.LIGHTGREEN_EX + f"--> Glückwunsch {gamer['Gamer']} du erhälst {winning_points} Punkte")
+                    self.logger.info(f"--> Glückwunsch {gamer['Gamer']} du erhälst {winning_points} Punkte")
                 else:
                     loosing_points = abs(gamer["Points"] - real_win) * 10
                     try:
                         self.player_points[gamer["Gamer"]] = self.player_points[gamer["Gamer"]] - loosing_points
                     except Exception:
                         self.player_points[gamer["Gamer"]] = -loosing_points
-                    self.logger.info(colorama.Fore.LIGHTRED_EX + f"--> Schade {gamer['Gamer']} du verlierst {loosing_points} Punkte")
+                    self.logger.info(f"--> Schade {gamer['Gamer']} du verlierst {loosing_points} Punkte")
             # Der erste Spieler kommt zum Schluss
             self.player_name.append(self.player_name.pop(self.player_name.index(player_wins[0]["Gamer"])))
             player_wins = []
-            self.logger.info(colorama.Fore.CYAN + "                   <<< Zwischenstand >>>")
+            self.logger.info("                   <<< Zwischenstand >>>")
             interim = " | ".join([f"{i+1}. {a[0]}: {a[1]} Punkten" for i, a in enumerate(sorted(self.player_points.items(), key=lambda x: x[1], reverse=True))])
-            self.logger.info(colorama.Fore.CYAN + interim)
-        self.logger.info(colorama.Fore.GREEN + "=============== Das Spiel ist Zuende ===============")
+            self.logger.info(interim)
+        self.logger.info("=============== Das Spiel ist Zuende ===============")
         interim = " | ".join([f"{i+1}. {a[0]}: {a[1]} Punkten" for i, a in enumerate(sorted(self.player_points.items(), key=lambda x: x[1], reverse=True))])
-        self.logger.info(colorama.Fore.LIGHTGREEN_EX + interim)
-        end_game = input(colorama.Fore.RED + "Wollte ihr das Spiel Wiederholen?  [Y/N]  :")
+        self.logger.info(interim)
+        end_game = input("Wollte ihr das Spiel Wiederholen?  [Y/N]  :")
         if end_game == "N":
-            self.logger.info(colorama.Fore.LIGHTGREEN_EX + "Das Spiel wird beendet.")
+            self.logger.info("Das Spiel wird beendet.")
             quit
         else:
-            self.logger.info(colorama.Fore.LIGHTGREEN_EX + "Das Spiel neu gestartet.")
+            self.logger.info("Das Spiel neu gestartet.")
             self.players_num.__del__()
             self.player_name.__del__()
             self.player_points.__del__()
@@ -194,4 +192,6 @@ class Wizard:
 if __name__ == "__main__":
     wizard = Wizard()
     wizard.run()
-# pyinstaller --onefile -c Wizard.py
+# pip install pip==18.1
+# py -m PyInstaller --onefile -c Wizard.py
+# python -m pip install --upgrade pip

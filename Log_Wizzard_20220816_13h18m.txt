@@ -1,0 +1,12 @@
+2022-08-16 13:18:09,325 - 
+
+2022-08-16 13:18:09,325 - [31m=============================================== Wizard by Kevin Thalmann ===============================================
+2022-08-16 13:18:09,325 - 
+
+2022-08-16 13:18:09,326 - [36mAls Erstes wird die Anzahl der Spieler bestimmt.
+2022-08-16 13:18:09,326 - [31m=> min = 3, max = 6 <=
+2022-08-16 13:18:16,964 - [32mAnzahl der Spieler = 3
+2022-08-16 13:18:16,964 - [36m
+Nun werden die Namen der Spieler bestimmt.
+2022-08-16 13:18:16,964 - [36mStarte mit dem Spieler welcher beginnen soll und gehe dann im Uhrzeigersinn weiter!
+
