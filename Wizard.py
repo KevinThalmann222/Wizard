@@ -15,6 +15,12 @@ class Wizard:
         self.logger = self.create_logger()
         os.system("color")
 
+    def test(self):
+        """
+        Das ist ein Test
+        """
+        pass
+
     def create_logger(self) -> object:
         logger = logging.getLogger(f"Wizzard_{self.current_datetime}")
         logger.setLevel(logging.DEBUG)
