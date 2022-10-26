@@ -15,12 +15,11 @@ class Wizard:
         self.logger = self.create_logger()
         os.system("color")
 
-    def create_logger(self):
+    def create_logger(self) -> object:
         logger = logging.getLogger(f"Wizzard_{self.current_datetime}")
         logger.setLevel(logging.DEBUG)
         for handler in reversed(logger.handlers):
             logger.removeHandler(handler)
-        # File
         file_handler = logging.FileHandler(f"Log_Wizzard_{self.current_datetime}.txt")
         file_handler.setLevel(logging.DEBUG)
         formatter = logging.Formatter("%(asctime)s - %(message)s")
