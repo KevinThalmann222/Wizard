@@ -6,7 +6,7 @@ import os
 
 
 class Wizard:
-    def __init__(self):
+    def __init__(self) -> None:
         """init"""
         self.players_num = None
         self.player_name = None
@@ -25,7 +25,6 @@ class Wizard:
         formatter = logging.Formatter("%(asctime)s - %(message)s")
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
-        # Console
         console_handler = logging.StreamHandler()
         console_handler.setLevel(logging.DEBUG)
         formatter = logging.Formatter("%(message)s")
