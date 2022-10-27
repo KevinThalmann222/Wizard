@@ -6,4 +6,4 @@ Zaehl automatisch die Punkte bei dem Kartenspiel Wizard
 - Aktueller Stand wird geplottet
 - Spielstand wird geloggt
 
-Viel Spaß!
+Viel Spaß beim Spielen!
